@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Tools | Contador de Muertes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+  <link rel="stylesheet" href="style.css?v=7.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+
+  <main class="deck">
+
+    <div class="col-main">
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Jugadores</h2>
+          <button type="button" id="btnResetDeaths" class="btn-control ghost small">
+            <i class="fa-solid fa-rotate-left"></i> Reiniciar muertes
+          </button>
+        </div>
+        <div id="players" class="players"></div>
+        <p class="hint">
+          <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> suman · <kbd>Shift</kbd> + número resta · <kbd>Espacio</kbd> pausa el timer
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2>Timer</h2><span id="timerState" class="timer-state">Detenido</span></div>
+        <div class="timer-row">
+          <div id="timerBig" class="timer-big">00:00:00</div>
+          <div class="row">
+            <button type="button" id="btnTimerToggle" class="btn-control primary"></button>
+            <button type="button" id="btnTimerReset" class="btn-control ghost" title="Reiniciar a 00:00:00" aria-label="Reiniciar timer">
+              <i class="fa-solid fa-arrow-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2>Ajustes</h2></div>
+        <div class="settings-grid">
+          <div class="field">
+            <label for="labelText">Título del marcador</label>
+            <input type="text" id="labelText">
+          </div>
+          <div class="field">
+            <label for="timerLabel">Texto sobre el timer</label>
+            <input type="text" id="timerLabel">
+          </div>
+          <div class="field">
+            <label for="textColor">Color</label>
+            <input type="color" id="textColor">
+          </div>
+          <div class="field">
+            <label for="bgOpacity">Opacidad del fondo: <span id="bgOpacityVal">62%</span></label>
+            <input type="range" id="bgOpacity" min="0" max="100" step="5">
+          </div>
+          <div class="field">
+            <label for="fontSize">Tamaño (px)</label>
+            <input type="number" id="fontSize" min="16" max="100">
+          </div>
+          <div class="field">
+            <label for="animSelect">Animación al morir</label>
+            <select id="animSelect">
+              <option value="bounce">Rebote rojo (Hurt)</option>
+              <option value="shake">Sacudida</option>
+              <option value="pop">Zoom</option>
+              <option value="spin">Giro de cara</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Posición en el lienzo</label>
+            <div class="pos-grid" id="posGrid" role="group" aria-label="Posición en el lienzo"></div>
+          </div>
+          <div class="field">
+            <label class="check"><input type="checkbox" id="showTimer"> Mostrar timer</label>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="col-preview">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Vista previa</h2>
+          <span id="connStatus" class="conn">Conectando…</span>
+        </div>
+        <div class="preview-box" id="previewBox"><div id="previewRoot"></div></div>
+        <p class="hint">
+          En OBS añade una fuente de navegador con <code>overlay.html</code> (1920×1080).
+          Si no se actualiza, abre <code>overlay.html?debug</code> para ver el estado de la conexión.
+        </p>
+      </section>
+    </aside>
+
+  </main>
+
+  <script src="render.js?v=7.0"></script>
+  <script src="control.js?v=7.0"></script>
+</body>
+</html>
